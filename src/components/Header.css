@@ -1,0 +1,12 @@
+.headerBar {
+  background: #333;
+  width: 100%;
+
+  position: fixed;
+}
+
+.headerText {
+  height: 100px;
+  line-height: 100px;
+  color: #fff;
+}
