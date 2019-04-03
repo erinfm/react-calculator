@@ -1,8 +1,6 @@
 .headerBar {
   background: #333;
   width: 100%;
-
-  position: fixed;
 }
 
 .headerText {
