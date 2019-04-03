@@ -1,9 +1,22 @@
 .buttonStyle {
   width: 100%;
-  color: #a06ee1;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-grow: 1;
+  font-size: 1.25rem;
+}
+
+.integer {
+  color: #444;
+}
+
+.operator {
+  color: #a06ee1;
+  font-size: 1.5rem;
+  padding-bottom: 0.3rem;
+}
+
+.clearBtn {
+  color: #a06ee1;
   font-size: 1.25rem;
 }

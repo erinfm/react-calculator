@@ -8,11 +8,10 @@
   width: 300px;
   height: 500px;
   margin: 3rem auto;
-  padding-bottom: 2rem;
 }
 
 .calcRowInput {
-  background: #eee;
+  background-image: linear-gradient(#f4f4f4 95%, #e4e4e4);
   flex: 3;
   display: flex;
   width: 100%;
@@ -21,5 +20,6 @@
 .calcRowBtn {
   flex: 1;
   display: flex;
+  align-items: center;
   width: 100%;
 }
