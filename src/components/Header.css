@@ -1,10 +1,9 @@
 .headerBar {
-  background: #333;
   width: 100%;
 }
 
 .headerText {
   height: 100px;
   line-height: 100px;
-  color: #fff;
+  color: #444;
 }
