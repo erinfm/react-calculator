@@ -1,0 +1,10 @@
+.calcScreen {
+  background-image: linear-gradient(#f4f4f4 95%, #e4e4e4);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 14rem;
+  width: 100%;
+
+  margin-bottom: 1.25rem;
+}

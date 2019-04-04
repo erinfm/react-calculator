@@ -1,9 +1,14 @@
 .buttonStyle {
-  width: 100%;
   display: flex;
-  justify-content: center;
-  flex-grow: 1;
+  flex: 1;
   font-size: 1.25rem;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.buttonStyle:hover {
+  background: #fafafa;
 }
 
 .integer {

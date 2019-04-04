@@ -1,0 +1,9 @@
+.resultStyle {
+  color: #444;
+  width: 100%;
+  text-align: right;
+  padding: 0 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
