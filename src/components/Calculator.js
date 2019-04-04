@@ -7,16 +7,50 @@ class Calculator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: "23+2",
+      input: "",
       result: "000"
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
-    let result = this.state.result;
-    console.log(result);
-    console.log(e);
+    let input = this.state.input;
+    console.log(e.target);
+
+    if (e.target.classList.contains("clearBtn")) {
+      return this.clear();
+    }
+
+    if (e.target.textContent <= 9 || e.target.textContent === ".") {
+      input += e.target.textContent;
+    } else if (e.target.textContent !== "" && e.target.textContent !== "=") {
+      input += ` ${e.target.textContent} `;
+    }
+
+    if (e.target.textContent === "=") {
+      return this.equals(input);
+    }
+    this.setState({ input: input });
+  }
+
+  clear() {
+    this.setState({ input: "", result: 0 });
+  }
+
+  equals(input) {
+    //replace occurences of "x" and "÷" with "*" and "/"
+    const editedInput = input
+      .replace(/×/g, "*")
+      .replace(/÷/g, "/")
+      .replace(/−/g, "-");
+
+    const evalResult = eval(editedInput);
+
+    const result = Number.isInteger(evalResult)
+      ? evalResult
+      : evalResult.toFixed(3);
+
+    this.setState({ result });
   }
 
   render() {
