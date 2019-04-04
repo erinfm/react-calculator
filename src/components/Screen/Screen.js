@@ -1,25 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import Input from "./Input";
 import Result from "./Result";
 import "./Screen.css";
 
-class Screen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input: "23+2",
-      result: "000"
-    };
-  }
-
-  render() {
-    return (
-      <div className="calcScreen">
-        <Input input={this.state.input} />
-        <Result result={this.state.result} />
-      </div>
-    );
-  }
-}
+const Screen = props => (
+  <div className="calcScreen">
+    <Input input={props.input} />
+    <Result result={props.result} />
+  </div>
+);
 
 export default Screen;
