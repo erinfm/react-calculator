@@ -8,17 +8,20 @@ class Calculator extends Component {
     super(props);
     this.state = {
       input: "",
-      result: "000"
+      result: "0"
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
     let input = this.state.input;
-    console.log(e.target);
 
     if (e.target.classList.contains("clearBtn")) {
       return this.clear();
+    }
+
+    if (e.target.textContent === "=") {
+      return this.equals(input);
     }
 
     if (e.target.textContent <= 9 || e.target.textContent === ".") {
@@ -27,9 +30,6 @@ class Calculator extends Component {
       input += ` ${e.target.textContent} `;
     }
 
-    if (e.target.textContent === "=") {
-      return this.equals(input);
-    }
     this.setState({ input: input });
   }
 

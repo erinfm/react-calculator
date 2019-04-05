@@ -16,12 +16,15 @@
 }
 
 .operator {
-  color: #a06ee1;
+  /* color: #a06ee1; */
+  color: #5e2bff;
   font-size: 1.5rem;
   padding-bottom: 0.3rem;
 }
 
 .clearBtn {
-  color: #a06ee1;
+  /* color: #a06ee1; */
+
+  color: #5e2bff;
   font-size: 1.25rem;
 }
