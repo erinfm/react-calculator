@@ -15,7 +15,7 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="*" type="operator">
           ×
         </Button>
-        <Button> </Button>
+        <Button type="disabled"> </Button>
       </div>
       <div className="calcRowBtn">
         <Button onClick={props.onClick} name="1" type="integer">
@@ -60,7 +60,7 @@ const Keypad = props => {
         </Button>
       </div>
       <div className="calcRowBtn">
-        <Button> </Button>
+        <Button type="disabled"> </Button>
         <Button onClick={props.onClick} name="0" type="integer">
           0
         </Button>

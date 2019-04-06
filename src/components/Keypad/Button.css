@@ -28,3 +28,8 @@
   color: #5e2bff;
   font-size: 1.25rem;
 }
+
+.disabled:hover {
+  background: none;
+  cursor: default;
+}
