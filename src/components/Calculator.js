@@ -22,7 +22,9 @@ class Calculator extends Component {
     }
 
     if (e.target.classList.contains("equals")) {
-      return this.equals(input);
+      // Ensures function only runs if last character in input is a number"
+      const lastChar = input.slice(-1);
+      if (lastChar !== " ") return this.equals(input);
     }
 
     if (e.target.classList.contains("integer")) {
@@ -38,12 +40,13 @@ class Calculator extends Component {
       this.currentNumber += e.target.textContent;
     }
 
-    if (
-      e.target.classList.contains("operator") &&
-      input.length > 0 &&
-      // Prevents operator at start of input
-      !isNaN(input.charAt(input.length - 2))
-    ) {
+    if (e.target.classList.contains("plusminus")) {
+      if (this.currentNumber === "" && input.charAt(input.length - 1) !== "-") {
+        input += "-";
+      }
+    }
+
+    if (e.target.classList.contains("operator") && this.currentNumber) {
       input += ` ${e.target.textContent} `;
       this.currentNumber = "";
     }
@@ -68,9 +71,14 @@ class Calculator extends Component {
 
     const result = Number.isInteger(evalResult)
       ? evalResult
-      : evalResult.toFixed(3);
+      : evalResult.toFixed(8);
 
-    this.setState({ result });
+    if (result.length > 10) {
+      const trimmedResult = result.substring(0, 10);
+      this.setState({ result: trimmedResult });
+    } else {
+      this.setState({ result });
+    }
   }
 
   render() {

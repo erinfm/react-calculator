@@ -55,7 +55,11 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="9" type="integer">
           9
         </Button>
-        <Button onClick={props.onClick} name="tbc" type="noninteger">
+        <Button
+          onClick={props.onClick}
+          name="plusminus"
+          type="noninteger plusminus"
+        >
           ±
         </Button>
       </div>
