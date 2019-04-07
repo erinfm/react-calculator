@@ -15,7 +15,7 @@
   color: #444;
 }
 
-.operator {
+.noninteger {
   /* color: #a06ee1; */
   color: #5e2bff;
   font-size: 1.5rem;
@@ -23,9 +23,6 @@
 }
 
 .clearBtn {
-  /* color: #a06ee1; */
-
-  color: #5e2bff;
   font-size: 1.25rem;
 }
 

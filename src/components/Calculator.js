@@ -10,6 +10,7 @@ class Calculator extends Component {
       input: "",
       result: "0"
     };
+    this.currentNumber = "";
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -20,24 +21,43 @@ class Calculator extends Component {
       return this.clear();
     }
 
-    if (e.target.textContent === "=") {
+    if (e.target.classList.contains("equals")) {
       return this.equals(input);
     }
 
-    if (e.target.textContent <= 9 || e.target.textContent === ".") {
+    if (e.target.classList.contains("integer")) {
       input += e.target.textContent;
-    } else if (e.target.textContent !== "" && e.target.textContent !== "=") {
+      this.currentNumber += e.target.textContent;
+    }
+
+    if (
+      e.target.classList.contains("decimal") &&
+      !this.currentNumber.includes(".")
+    ) {
+      input += e.target.textContent;
+      this.currentNumber += e.target.textContent;
+    }
+
+    if (
+      e.target.classList.contains("operator") &&
+      input.length > 0 &&
+      // Prevents operator at start of input
+      !isNaN(input.charAt(input.length - 2))
+    ) {
       input += ` ${e.target.textContent} `;
+      this.currentNumber = "";
     }
 
     this.setState({ input: input });
   }
 
   clear() {
+    this.currentNumber = "";
     this.setState({ input: "", result: 0 });
   }
 
   equals(input) {
+    this.currentNumber = "";
     //replace occurences of "x" and "÷" with "*" and "/"
     const editedInput = input
       .replace(/×/g, "*")

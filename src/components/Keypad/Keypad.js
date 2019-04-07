@@ -6,13 +6,13 @@ const Keypad = props => {
   return (
     <div className="calcKeypad">
       <div className="calcRowBtn">
-        <Button onClick={props.onClick} name="clear" type="clearBtn">
+        <Button onClick={props.onClick} name="clear" type="noninteger clearBtn">
           C
         </Button>
-        <Button onClick={props.onClick} name="/" type="operator">
+        <Button onClick={props.onClick} name="/" type="noninteger operator">
           ÷
         </Button>
-        <Button onClick={props.onClick} name="*" type="operator">
+        <Button onClick={props.onClick} name="*" type="noninteger operator">
           ×
         </Button>
         <Button type="disabled"> </Button>
@@ -27,7 +27,7 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="3" type="integer">
           3
         </Button>
-        <Button onClick={props.onClick} name="-" type="operator">
+        <Button onClick={props.onClick} name="-" type="noninteger operator">
           −
         </Button>
       </div>
@@ -41,7 +41,7 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="6" type="integer">
           6
         </Button>
-        <Button onClick={props.onClick} name="+" type="operator">
+        <Button onClick={props.onClick} name="+" type="noninteger operator">
           +
         </Button>
       </div>
@@ -55,7 +55,7 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="9" type="integer">
           9
         </Button>
-        <Button onClick={props.onClick} name="tbc" type="operator">
+        <Button onClick={props.onClick} name="tbc" type="noninteger">
           ±
         </Button>
       </div>
@@ -64,10 +64,10 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="0" type="integer">
           0
         </Button>
-        <Button onClick={props.onClick} name="." type="operator">
+        <Button onClick={props.onClick} name="." type="noninteger decimal">
           .
         </Button>
-        <Button onClick={props.onClick} name="equals" type="operator">
+        <Button onClick={props.onClick} name="equals" type="noninteger equals">
           =
         </Button>
       </div>
