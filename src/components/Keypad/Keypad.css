@@ -1,7 +1,7 @@
 .calcKeypad {
   display: flex;
   flex-direction: column;
-  height: 16rem;
+  flex: 1;
 }
 
 .calcRowBtn {

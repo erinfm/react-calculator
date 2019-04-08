@@ -5,12 +5,21 @@ import "./App.css";
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <Header />
-        <Calculator />
-      </div>
-    );
+    let width = window.innerWidth;
+    if (width < 480) {
+      return (
+        <div className="App">
+          <Calculator />
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <Header />
+          <Calculator />
+        </div>
+      );
+    }
   }
 }
 

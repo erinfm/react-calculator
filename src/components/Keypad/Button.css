@@ -1,32 +1,38 @@
 .buttonStyle {
   display: flex;
   flex: 1;
-  font-size: 1.25rem;
+  font-size: 2rem;
+  font-weight: 400;
   justify-content: center;
   flex-direction: column;
+  margin: 1.5px;
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.disabled {
+  background-color: v;
 }
 
 .buttonStyle:hover {
-  background: #fafafa;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .integer {
-  color: #444;
+  color: #fff;
 }
 
 .noninteger {
-  /* color: #a06ee1; */
-  color: #5e2bff;
-  font-size: 1.5rem;
-  padding-bottom: 0.3rem;
+  color: #fff;
+  font-size: 2.5rem;
 }
 
 .clearBtn {
-  font-size: 1.25rem;
+  padding-top: 8px;
+  font-size: 2rem;
 }
 
 .disabled:hover {
-  background: none;
+  background-color: rgba(255, 255, 255, 0.2);
   cursor: default;
 }

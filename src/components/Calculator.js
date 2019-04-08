@@ -41,7 +41,7 @@ class Calculator extends Component {
     }
 
     if (e.target.classList.contains("plusminus")) {
-      if (this.currentNumber === "" && input.charAt(input.length - 1) !== "-") {
+      if (this.currentNumber === "" && input[input.length - 1] !== "-") {
         input += "-";
       }
     }
@@ -60,7 +60,6 @@ class Calculator extends Component {
   }
 
   equals(input) {
-    this.currentNumber = "";
     //replace occurences of "x" and "÷" with "*" and "/"
     const editedInput = input
       .replace(/×/g, "*")
@@ -73,8 +72,8 @@ class Calculator extends Component {
       ? evalResult
       : evalResult.toFixed(8);
 
-    if (result.length > 10) {
-      const trimmedResult = result.substring(0, 10);
+    if (result.length > 8) {
+      const trimmedResult = result.substring(0, 8);
       this.setState({ result: trimmedResult });
     } else {
       this.setState({ result });

@@ -1,7 +1,6 @@
 .App {
-  /* background-color: #cef9e2; */
-  /* background-color: #d6eadf; */
-  background-color: #f3fae1;
   height: 100vh;
+  background-color: #4d305e;
+  background-size: cover;
   text-align: center;
 }
