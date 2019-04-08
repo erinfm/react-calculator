@@ -2,9 +2,16 @@
   color: #fff;
   width: 100%;
   text-align: right;
-  padding: 0 1.25rem;
-  font-size: 3.25rem;
+  padding: 0 1rem;
+  font-size: 4rem;
   font-weight: 400;
   overflow: auto;
   overflow-wrap: break-word;
+}
+
+@media (max-width: 500px) {
+  .resultStyle {
+    font-size: 3.25rem;
+    padding: 0 1.25rem;
+  }
 }
