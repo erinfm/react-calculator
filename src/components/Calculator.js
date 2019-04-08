@@ -11,20 +11,27 @@ class Calculator extends Component {
       result: "0"
     };
     this.currentNumber = "";
+    this.lastNumber = "";
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
     let input = this.state.input;
+    console.log(input);
 
     if (e.target.classList.contains("clearBtn")) {
-      return this.clear();
+      return this.clearAll();
+    }
+
+    if (e.target.classList.contains("backarrow")) {
+      return this.clearLast(input);
     }
 
     if (e.target.classList.contains("equals")) {
       // Ensures function only runs if last character in input is a number"
       const lastChar = input.slice(-1);
-      if (lastChar !== " ") return this.equals(input);
+      if (lastChar !== " " && lastChar !== "-" && lastChar !== ".")
+        return this.equals(input);
     }
 
     if (e.target.classList.contains("integer")) {
@@ -48,15 +55,40 @@ class Calculator extends Component {
 
     if (e.target.classList.contains("operator") && this.currentNumber) {
       input += ` ${e.target.textContent} `;
+      this.lastNumber = this.currentNumber;
       this.currentNumber = "";
     }
 
     this.setState({ input: input });
   }
 
-  clear() {
+  clearAll() {
     this.currentNumber = "";
     this.setState({ input: "", result: 0 });
+  }
+
+  clearLast(input) {
+    console.log("clearing");
+    let lastInputRemoved = "";
+    let newCurrentInput = "";
+
+    if (input[input.length - 1] === " ") {
+      lastInputRemoved = input.substring(0, input - 3);
+      newCurrentInput = input.substring(0, input.length - 3);
+
+      this.currentNumber = this.lastNumber;
+    } else {
+      lastInputRemoved = this.currentNumber.substring(
+        0,
+        this.currentNumber.length - 1
+      );
+
+      newCurrentInput = input.substring(0, input.length - 1);
+
+      this.currentNumber = lastInputRemoved;
+    }
+
+    this.setState({ input: newCurrentInput });
   }
 
   equals(input) {
@@ -68,16 +100,15 @@ class Calculator extends Component {
 
     const evalResult = eval(editedInput);
 
+    if (evalResult === undefined) {
+      return;
+    }
+
     const result = Number.isInteger(evalResult)
       ? evalResult
-      : evalResult.toFixed(8);
+      : evalResult.toFixed(3);
 
-    if (result.length > 8) {
-      const trimmedResult = result.substring(0, 8);
-      this.setState({ result: trimmedResult });
-    } else {
-      this.setState({ result });
-    }
+    this.setState({ result });
   }
 
   render() {

@@ -15,7 +15,9 @@ const Keypad = props => {
         <Button onClick={props.onClick} name="*" type="noninteger operator">
           ×
         </Button>
-        <Button type="disabled"> </Button>
+        <Button onClick={props.onClick} type="noninteger backarrow">
+          ←
+        </Button>
       </div>
       <div className="calcRowBtn">
         <Button onClick={props.onClick} name="1" type="integer">
