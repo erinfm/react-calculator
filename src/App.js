@@ -6,7 +6,7 @@ import "./App.css";
 class App extends Component {
   render() {
     let width = window.innerWidth;
-    if (width < 480) {
+    if (width <= 500) {
       return (
         <div className="App">
           <Calculator />

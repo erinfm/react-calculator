@@ -12,6 +12,7 @@ class Calculator extends Component {
     };
     this.currentNumber = "";
     this.lastNumber = "";
+    this.isNewCalculation = false;
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -54,9 +55,16 @@ class Calculator extends Component {
     }
 
     if (e.target.classList.contains("operator") && this.currentNumber) {
-      input += ` ${e.target.textContent} `;
-      this.lastNumber = this.currentNumber;
-      this.currentNumber = "";
+      if (this.isNewCalculation) {
+        input = `${this.state.result} ${e.target.textContent} `;
+        this.lastNumber = this.currentNumber;
+        this.currentNumber = "";
+        this.isNewCalculation = false;
+      } else {
+        input += ` ${e.target.textContent} `;
+        this.lastNumber = this.currentNumber;
+        this.currentNumber = "";
+      }
     }
 
     this.setState({ input: input });
@@ -64,6 +72,7 @@ class Calculator extends Component {
 
   clearAll() {
     this.currentNumber = "";
+    this.isNewCalculation = false;
     this.setState({ input: "", result: 0 });
   }
 
@@ -108,6 +117,7 @@ class Calculator extends Component {
       ? evalResult
       : evalResult.toFixed(3);
 
+    this.isNewCalculation = true;
     this.setState({ result });
   }
 
