@@ -66,7 +66,13 @@ const Keypad = props => {
         </Button>
       </div>
       <div className="calcRowBtn">
-        <Button type="disabled"> </Button>
+        <Button
+          onClick={props.onClick}
+          name="brackets"
+          type="noninteger brackets"
+        >
+          ( )
+        </Button>
         <Button onClick={props.onClick} name="0" type="integer">
           0
         </Button>

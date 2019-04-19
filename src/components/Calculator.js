@@ -30,19 +30,50 @@ class Calculator extends Component {
 
     if (e.target.classList.contains("equals")) {
       // Ensures function only runs if last character in input is a number"
-      const lastChar = input.slice(-1);
-      if (lastChar !== " " && lastChar !== "-" && lastChar !== ".")
+      if (this.currentNumber.includes("(")) this.currentNumber += ")";
+      if (
+        input[input.length - 1] !== "-" &&
+        input[input.length - 1] !== " " &&
+        input[input.length - 1] !== "."
+      ) {
         return this.equals(input);
+      }
     }
 
-    if (e.target.classList.contains("integer")) {
+    if (
+      e.target.classList.contains("integer") &&
+      this.isNewCalculation === false &&
+      input[input.length - 1] !== ")"
+    ) {
+      console.log(this.currentNumber);
       input += e.target.textContent;
       this.currentNumber += e.target.textContent;
     }
 
     if (
+      e.target.classList.contains("brackets") &&
+      input[input.length - 1] !== "(" &&
+      input[input.length - 1] !== ")" &&
+      input[input.length - 1] !== "."
+    ) {
+      if (this.currentNumber) {
+        console.log("brackets");
+        this.lastNumber = this.currentNumber;
+        this.currentNumber += ")";
+        input += ")";
+      } else {
+        this.currentNumber += "(";
+        input += "(";
+      }
+    }
+
+    if (
       e.target.classList.contains("decimal") &&
+      input[input.length - 1] !== ")" &&
       !this.currentNumber.includes(".")
+      // &&
+      // input[input.length - 1] !== "(" &&
+      // input[input.length - 1] !== ")"
     ) {
       input += e.target.textContent;
       this.currentNumber += e.target.textContent;
@@ -54,7 +85,11 @@ class Calculator extends Component {
       }
     }
 
-    if (e.target.classList.contains("operator") && this.currentNumber) {
+    if (
+      e.target.classList.contains("operator") &&
+      this.currentNumber &&
+      this.currentNumber !== "("
+    ) {
       if (this.isNewCalculation) {
         input = `${this.state.result} ${e.target.textContent} `;
         this.lastNumber = this.currentNumber;
@@ -101,22 +136,32 @@ class Calculator extends Component {
   }
 
   equals(input) {
+    let evalResult = "";
     //replace occurences of "x" and "÷" with "*" and "/"
     const editedInput = input
       .replace(/×/g, "*")
       .replace(/÷/g, "/")
       .replace(/−/g, "-");
 
-    const evalResult = eval(editedInput);
+    try {
+      evalResult = eval(editedInput);
+    } catch (e) {
+      // corrects input when unneccesary ")" has been placed at end
+      if (e.message.includes(")")) {
+        const correctedInput = editedInput.substring(0, editedInput.length - 1);
+        evalResult = eval(correctedInput);
+      }
+    }
 
-    if (evalResult === undefined) {
+    if (evalResult === undefined || evalResult === "") {
       return;
     }
 
-    const result = Number.isInteger(evalResult)
+    const editedEval = Number.isInteger(evalResult)
       ? evalResult
-      : evalResult.toFixed(3);
+      : evalResult.toFixed(6);
 
+    const result = parseFloat(editedEval);
     this.isNewCalculation = true;
     this.setState({ result });
   }
