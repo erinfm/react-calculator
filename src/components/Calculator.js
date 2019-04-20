@@ -31,10 +31,20 @@ class Calculator extends Component {
     if (e.target.classList.contains("equals")) {
       // Ensures function only runs if last character in input is a number"
       if (this.currentNumber.includes("(")) this.currentNumber += ")";
+
+      // Ensures function only runs if parentheses are balanced
+      let depth = 0;
+      for (let i of input) {
+        if (i === "(") depth += 1;
+        if (i === ")") depth -= 1;
+      }
+
       if (
+        depth === 0 &&
         input[input.length - 1] !== "-" &&
         input[input.length - 1] !== " " &&
-        input[input.length - 1] !== "."
+        input[input.length - 1] !== "." &&
+        input[input.length - 1] !== "("
       ) {
         return this.equals(input);
       }
@@ -52,16 +62,24 @@ class Calculator extends Component {
 
     if (
       e.target.classList.contains("brackets") &&
-      input[input.length - 1] !== "(" &&
-      input[input.length - 1] !== ")" &&
       input[input.length - 1] !== "."
     ) {
-      if (this.currentNumber) {
-        console.log("brackets");
+      if (
+        this.currentNumber &&
+        !isNaN(input[input.length - 1]) &&
+        input.includes("(")
+      ) {
         this.lastNumber = this.currentNumber;
         this.currentNumber += ")";
         input += ")";
-      } else {
+      } else if (input[input.length - 1] === ")") {
+        this.currentNumber += ")";
+        input += ")";
+      } else if (
+        input[input.length - 1] !== ")" ||
+        input[input.length - 1] === "(" ||
+        input[input.length - 1] === " "
+      ) {
         this.currentNumber += "(";
         input += "(";
       }
