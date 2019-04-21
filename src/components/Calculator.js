@@ -2,18 +2,21 @@ import React, { Component } from "react";
 import "./Calculator.css";
 import Screen from "./Screen/Screen";
 import Keypad from "./Keypad/Keypad";
+import History from "./History/History";
 
 class Calculator extends Component {
   constructor(props) {
     super(props);
     this.state = {
       input: "",
-      result: "0"
+      result: "0",
+      historyVisibility: false
     };
     this.currentNumber = "";
     this.lastNumber = "";
     this.isNewCalculation = false;
     this.handleClick = this.handleClick.bind(this);
+    this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   handleClick(e) {
@@ -76,9 +79,9 @@ class Calculator extends Component {
         this.currentNumber += ")";
         input += ")";
       } else if (
-        input[input.length - 1] !== ")" ||
         input[input.length - 1] === "(" ||
-        input[input.length - 1] === " "
+        input[input.length - 1] === " " ||
+        input.length === 0
       ) {
         this.currentNumber += "(";
         input += "(";
@@ -89,9 +92,6 @@ class Calculator extends Component {
       e.target.classList.contains("decimal") &&
       input[input.length - 1] !== ")" &&
       !this.currentNumber.includes(".")
-      // &&
-      // input[input.length - 1] !== "(" &&
-      // input[input.length - 1] !== ")"
     ) {
       input += e.target.textContent;
       this.currentNumber += e.target.textContent;
@@ -106,7 +106,8 @@ class Calculator extends Component {
     if (
       e.target.classList.contains("operator") &&
       this.currentNumber &&
-      this.currentNumber !== "("
+      this.currentNumber !== "(" &&
+      input[input.length - 1] !== "."
     ) {
       if (this.isNewCalculation) {
         input = `${this.state.result} ${e.target.textContent} `;
@@ -164,11 +165,7 @@ class Calculator extends Component {
     try {
       evalResult = eval(editedInput);
     } catch (e) {
-      // corrects input when unneccesary ")" has been placed at end
-      if (e.message.includes(")")) {
-        const correctedInput = editedInput.substring(0, editedInput.length - 1);
-        evalResult = eval(correctedInput);
-      }
+      return;
     }
 
     if (evalResult === undefined || evalResult === "") {
@@ -184,11 +181,24 @@ class Calculator extends Component {
     this.setState({ result });
   }
 
+  toggleVisibility(e) {
+    console.log(e);
+    this.setState({
+      visibility: !this.state.visibility
+    });
+  }
+
   render() {
     return (
-      <div className="calcContainer">
-        <Screen input={this.state.input} result={this.state.result} />
-        <Keypad onClick={this.handleClick} />
+      <div>
+        <div className="calcContainer">
+          <Screen input={this.state.input} result={this.state.result} />
+          <Keypad onClick={this.handleClick} />
+          <p id="prevCalc" onClick={this.toggleVisibility}>
+            Previous calculations ↴
+          </p>
+        </div>
+        <History visibility={this.state.visibility} />
       </div>
     );
   }
