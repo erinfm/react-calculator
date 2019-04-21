@@ -181,8 +181,11 @@ class Calculator extends Component {
 
     const result = parseFloat(editedEval);
     this.isNewCalculation = true;
-    this.setState({ result });
-    this.addToHistory();
+
+    // Run addToHistory() once result state has been updated
+    this.setState({ result }, () => {
+      this.addToHistory();
+    });
   }
 
   toggleVisibility(e) {
