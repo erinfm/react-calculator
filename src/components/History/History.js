@@ -2,14 +2,15 @@ import React from "react";
 import "./History.css";
 
 const History = props => {
-  console.log(props);
+  const listItems = props.list.map(i => <p key={i[0]}>{i[1]}</p>);
+
   return (
     <div
       className={
         props.visibility ? "historyStyle visible" : "historyStyle invisible"
       }
     >
-      <p>calculation history here</p>
+      {listItems}
     </div>
   );
 };

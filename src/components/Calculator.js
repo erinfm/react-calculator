@@ -10,11 +10,14 @@ class Calculator extends Component {
     this.state = {
       input: "",
       result: "0",
-      historyVisibility: false
+      historyVisibility: false,
+      list: []
     };
     this.currentNumber = "";
     this.lastNumber = "";
     this.isNewCalculation = false;
+    this.keyCount = 0;
+    this.getKey = this.getKey.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleVisibility = this.toggleVisibility.bind(this);
   }
@@ -179,12 +182,33 @@ class Calculator extends Component {
     const result = parseFloat(editedEval);
     this.isNewCalculation = true;
     this.setState({ result });
+    this.addToHistory();
   }
 
   toggleVisibility(e) {
     console.log(e);
     this.setState({
       visibility: !this.state.visibility
+    });
+  }
+
+  getKey() {
+    return this.keyCount++;
+  }
+
+  addToHistory() {
+    console.log("added!");
+    const newItem = [
+      `${this.getKey()}`,
+      `${this.state.input} = ${this.state.result}`
+    ];
+
+    const list = [...this.state.list];
+
+    list.push(newItem);
+
+    this.setState({
+      list
     });
   }
 
@@ -198,7 +222,7 @@ class Calculator extends Component {
             Previous calculations ↴
           </p>
         </div>
-        <History visibility={this.state.visibility} />
+        <History visibility={this.state.visibility} list={this.state.list} />
       </div>
     );
   }
