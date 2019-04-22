@@ -7,14 +7,15 @@
   width: 420px;
   height: 640px;
   padding: 12px;
-  margin: 3vh auto 0 auto;
+  margin: 2vh auto 0 auto;
   overflow: hidden;
 }
 
 #prevCalc {
+  font-size: 1.2rem;
   cursor: pointer;
-  margin: 1.25rem auto 1rem auto;
-  width: 200px;
+  margin: 1.25rem auto 0.5rem auto;
+  width: 220px;
   color: white;
 }
 

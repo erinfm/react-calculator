@@ -22,6 +22,17 @@ class Calculator extends Component {
     this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
+  componentDidMount() {
+    // Makes contents of localStorage display in History component
+    const listObj = { ...localStorage };
+    const list = Object.keys(listObj).map(key => [Number(key), listObj[key]]);
+
+    // Remove last element from list array
+    const popped = list.pop();
+
+    this.setState({ list });
+  }
+
   handleClick(e) {
     let input = this.state.input;
     console.log(input);
@@ -210,11 +221,23 @@ class Calculator extends Component {
 
     list.push(newItem);
 
+    // Limits history list to last 15 calculations
+    if (list.length > 15) {
+      list.shift();
+    }
+
     this.setState({
       list
     });
+
+    localStorage.setItem(newItem[0], newItem[1]);
   }
 
+  // saveToLocalStorage() {
+  //   for (let i in this.state.list) {
+  //     localStorage.setItem(i[0], i[1])
+  //   }
+  // }
   render() {
     return (
       <div>
@@ -222,7 +245,7 @@ class Calculator extends Component {
           <Screen input={this.state.input} result={this.state.result} />
           <Keypad onClick={this.handleClick} />
           <p id="prevCalc" onClick={this.toggleVisibility}>
-            Previous calculations ↴
+            Previous Calculations ↓
           </p>
         </div>
         <History visibility={this.state.visibility} list={this.state.list} />
