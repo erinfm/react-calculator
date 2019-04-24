@@ -28,7 +28,7 @@ class Calculator extends Component {
     const list = Object.keys(listObj).map(key => [Number(key), listObj[key]]);
 
     // Remove last element from list array
-    const popped = list.pop();
+    let popped = list.pop();
 
     this.setState({ list });
   }
@@ -245,10 +245,16 @@ class Calculator extends Component {
           <Screen input={this.state.input} result={this.state.result} />
           <Keypad onClick={this.handleClick} />
           <p id="prevCalc" onClick={this.toggleVisibility}>
-            Previous Calculations ↓
+            {this.state.visibility
+              ? `Previous Calculations  ✖`
+              : `Previous Calculations ↓`}
           </p>
         </div>
-        <History visibility={this.state.visibility} list={this.state.list} />
+        <History
+          visibility={this.state.visibility}
+          list={this.state.list}
+          toggle={this.toggleVisibility}
+        />
       </div>
     );
   }

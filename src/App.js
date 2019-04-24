@@ -5,7 +5,7 @@ import "./App.css";
 
 class App extends Component {
   render() {
-    let width = window.innerWidth;
+    const width = window.innerWidth;
     if (width <= 500) {
       return (
         <div className="App">

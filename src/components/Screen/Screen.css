@@ -6,8 +6,8 @@
   width: 100%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .calcScreen {
-    height: 10rem;
+    height: 35vh;
   }
 }
