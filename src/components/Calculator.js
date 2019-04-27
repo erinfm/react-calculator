@@ -54,7 +54,6 @@ class Calculator extends Component {
 
     if (
       e.target.classList.contains("integer") &&
-      this.isNewCalculation === false &&
       input[input.length - 1] !== ")"
     ) {
       input += e.target.textContent;
