@@ -27,6 +27,7 @@ class Calculator extends Component {
     }
 
     if (e.target.classList.contains("backarrow")) {
+      if (this.isNewCalculation) return;
       return this.clearLast(input);
     }
 
@@ -54,6 +55,7 @@ class Calculator extends Component {
 
     if (
       e.target.classList.contains("integer") &&
+      this.isNewCalculation !== true &&
       input[input.length - 1] !== ")"
     ) {
       input += e.target.textContent;
@@ -62,6 +64,7 @@ class Calculator extends Component {
 
     if (
       e.target.classList.contains("brackets") &&
+      this.isNewCalculation !== true &&
       input[input.length - 1] !== "."
     ) {
       if (

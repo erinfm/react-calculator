@@ -23,7 +23,7 @@ class History extends Component {
   }
 
   updateListItems() {
-    if (this.state.list && this.state.list.includes(",")) {
+    if (this.state.list && this.state.list.length > 1) {
       this.listItems = this.state.list
         .split(",")
         .map((item, index) => <p key={index}>{item}</p>);
@@ -39,7 +39,7 @@ class History extends Component {
   }
 
   render() {
-    if (this.state.list && this.state.list.includes(",")) {
+    if (this.state.list && this.state.list.length > 1) {
       this.updateListItems();
     }
     const width = window.innerWidth;
