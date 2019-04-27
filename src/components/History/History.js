@@ -1,34 +1,82 @@
 import React, { Component } from "react";
 import "./History.css";
 
-const History = props => {
-  console.log(props);
-  const listItems = props.list.map(i => <p key={i[0]}>{i[1]}</p>);
+class History extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { list: "" };
+    this.clearAll = this.clearAll.bind(this);
+  }
 
-  const width = window.innerWidth;
-  if (width <= 500) {
-    return (
-      <div
-        className={
-          props.visibility ? "historyStyle visible" : "historyStyle invisible"
-        }
-      >
-        <div id="closeHistory" onClick={props.toggle}>
-          &#10006;
+  componentDidMount() {
+    this.setState({ list: localStorage.getItem("list") }, () =>
+      this.updateListItems()
+    );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.list !== localStorage.getItem("list")) {
+      this.setState({ list: localStorage.getItem("list") }, () =>
+        this.updateListItems()
+      );
+    }
+  }
+
+  updateListItems() {
+    if (this.state.list && this.state.list.includes(",")) {
+      this.listItems = this.state.list
+        .split(",")
+        .map((item, index) => <p key={index}>{item}</p>);
+    } else {
+      return;
+    }
+  }
+
+  clearAll() {
+    localStorage.clear();
+    this.setState({ list: [] });
+    this.listItems = [];
+  }
+
+  render() {
+    if (this.state.list && this.state.list.includes(",")) {
+      this.updateListItems();
+    }
+    const width = window.innerWidth;
+    if (width <= 500) {
+      return (
+        <div
+          className={
+            this.props.visibility
+              ? "historyStyle visible"
+              : "historyStyle invisible"
+          }
+        >
+          <div id="closeHistory" onClick={this.props.toggle}>
+            &#10006;
+          </div>
+          <div id="listItems">{this.listItems}</div>
+          <p id="clearHistory" onClick={() => this.clearAll()}>
+            Clear All
+          </p>
         </div>
-        <div id="listItems">{listItems}</div>
-      </div>
-    );
-  } else
-    return (
-      <div
-        className={
-          props.visibility ? "historyStyle visible" : "historyStyle invisible"
-        }
-      >
-        <div id="listItems">{listItems}</div>
-      </div>
-    );
-};
+      );
+    } else
+      return (
+        <div
+          className={
+            this.props.visibility
+              ? "historyStyle visible"
+              : "historyStyle invisible"
+          }
+        >
+          <div id="listItems">{this.listItems}</div>
+          <p id="clearHistory" onClick={() => this.clearAll()}>
+            Clear All
+          </p>
+        </div>
+      );
+  }
+}
 
 export default History;

@@ -10,32 +10,17 @@ class Calculator extends Component {
     this.state = {
       input: "",
       result: "0",
-      historyVisibility: false,
-      list: []
+      historyVisibility: false
     };
     this.currentNumber = "";
     this.lastNumber = "";
     this.isNewCalculation = false;
-    this.keyCount = 0;
-    this.getKey = this.getKey.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
-  componentDidMount() {
-    // Makes contents of localStorage display in History component
-    const listObj = { ...localStorage };
-    const list = Object.keys(listObj).map(key => [Number(key), listObj[key]]);
-
-    // Remove last element from list array
-    let popped = list.pop();
-
-    this.setState({ list });
-  }
-
   handleClick(e) {
     let input = this.state.input;
-    console.log(input);
 
     if (e.target.classList.contains("clearBtn")) {
       return this.clearAll();
@@ -72,7 +57,6 @@ class Calculator extends Component {
       this.isNewCalculation === false &&
       input[input.length - 1] !== ")"
     ) {
-      console.log(this.currentNumber);
       input += e.target.textContent;
       this.currentNumber += e.target.textContent;
     }
@@ -145,7 +129,6 @@ class Calculator extends Component {
   }
 
   clearLast(input) {
-    console.log("clearing");
     let lastInputRemoved = "";
     let newCurrentInput = "";
 
@@ -200,44 +183,36 @@ class Calculator extends Component {
   }
 
   toggleVisibility(e) {
-    console.log(e);
     this.setState({
       visibility: !this.state.visibility
     });
   }
 
-  getKey() {
-    return this.keyCount++;
-  }
-
   addToHistory() {
-    console.log("added!");
-    const newItem = [
-      `${this.getKey()}`,
-      `${this.state.input} = ${this.state.result}`
-    ];
+    const newItem = [`${this.state.input} = ${this.state.result}`];
 
-    const list = [...this.state.list];
+    const list = localStorage.getItem("list") || "";
 
-    list.push(newItem);
+    // Convert list from localStorage from string into array, to make adding new item and checking length easier
+    const listArray = list.split(",");
+
+    listArray.push(newItem);
 
     // Limits history list to last 15 calculations
-    if (list.length > 15) {
-      list.shift();
+    if (listArray.length > 15) {
+      listArray.shift();
     }
 
-    this.setState({
-      list
-    });
+    // Convert back to string and remove initial ","
+    let listString = listArray.join(",");
 
-    localStorage.setItem(newItem[0], newItem[1]);
+    if (listString[0] === ",") {
+      listString = listString.substring(1);
+    }
+
+    localStorage.setItem("list", listString);
   }
 
-  // saveToLocalStorage() {
-  //   for (let i in this.state.list) {
-  //     localStorage.setItem(i[0], i[1])
-  //   }
-  // }
   render() {
     return (
       <div>
@@ -252,7 +227,6 @@ class Calculator extends Component {
         </div>
         <History
           visibility={this.state.visibility}
-          list={this.state.list}
           toggle={this.toggleVisibility}
         />
       </div>
