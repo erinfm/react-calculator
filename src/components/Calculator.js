@@ -21,17 +21,18 @@ class Calculator extends Component {
 
   handleClick(e) {
     let input = this.state.input;
+    const elementClasses = e.target.classList;
 
-    if (e.target.classList.contains("clearBtn")) {
+    if (elementClasses.contains("clearBtn")) {
       return this.clearAll();
     }
 
-    if (e.target.classList.contains("backarrow")) {
+    if (elementClasses.contains("backarrow")) {
       if (this.isNewCalculation) return;
       return this.clearLast(input);
     }
 
-    if (e.target.classList.contains("equals")) {
+    if (elementClasses.contains("equals")) {
       // Ensures function only runs if last character in input is a number"
       if (this.currentNumber.includes("(")) this.currentNumber += ")";
 
@@ -54,7 +55,7 @@ class Calculator extends Component {
     }
 
     if (
-      e.target.classList.contains("integer") &&
+      elementClasses.contains("integer") &&
       this.isNewCalculation !== true &&
       input[input.length - 1] !== ")"
     ) {
@@ -63,7 +64,7 @@ class Calculator extends Component {
     }
 
     if (
-      e.target.classList.contains("brackets") &&
+      elementClasses.contains("brackets") &&
       this.isNewCalculation !== true &&
       input[input.length - 1] !== "."
     ) {
@@ -89,7 +90,7 @@ class Calculator extends Component {
     }
 
     if (
-      e.target.classList.contains("decimal") &&
+      elementClasses.contains("decimal") &&
       input[input.length - 1] !== ")" &&
       !this.currentNumber.includes(".")
     ) {
@@ -97,14 +98,14 @@ class Calculator extends Component {
       this.currentNumber += e.target.textContent;
     }
 
-    if (e.target.classList.contains("plusminus")) {
+    if (elementClasses.contains("plusminus")) {
       if (this.currentNumber === "" && input[input.length - 1] !== "-") {
         input += "-";
       }
     }
 
     if (
-      e.target.classList.contains("operator") &&
+      elementClasses.contains("operator") &&
       this.currentNumber &&
       this.currentNumber !== "(" &&
       input[input.length - 1] !== "."
