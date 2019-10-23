@@ -54,11 +54,7 @@ class Calculator extends Component {
       }
     }
 
-    if (
-      elementClasses.contains("integer") &&
-      this.isNewCalculation !== true &&
-      input[input.length - 1] !== ")"
-    ) {
+    if (elementClasses.contains("integer") && input[input.length - 1] !== ")") {
       input += e.target.textContent;
       this.currentNumber += e.target.textContent;
     }
