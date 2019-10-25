@@ -1,6 +1,12 @@
 # React Calculator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive calculator app, built with React! 
+
+This project was bootstrapped with [Create React App]
+
+## How to run the app on a local development server
+
+Clone the repo, `cd` into the created directory, run `npm install` and then `npm start`. 
 
 ## Available Scripts
 
